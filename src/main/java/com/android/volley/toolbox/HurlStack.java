@@ -258,9 +258,13 @@ public class HurlStack implements HttpStack {
     private static void addBodyIfExists(HttpURLConnection connection, Request<?> request)
             throws IOException, AuthFailureError {
         byte[] body = request.getBody();
-        if (body != null) {
+        //edit star
+        connection.addRequestProperty(HEADER_CONTENT_TYPE, request.getBodyContentType());
+        if (body != null)
+        {
             connection.setDoOutput(true);
-            connection.addRequestProperty(HEADER_CONTENT_TYPE, request.getBodyContentType());
+            //connection.addRequestProperty(HEADER_CONTENT_TYPE, request.getBodyContentType());
+            // edit end
             DataOutputStream out = new DataOutputStream(connection.getOutputStream());
             out.write(body);
             out.close();
